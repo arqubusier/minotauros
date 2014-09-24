@@ -1,0 +1,34 @@
+Bilden under punkt 2.1: Beslutsenhet skickar kommandon till sensorenhet; Motorenhet skickar felsökningsdata till beslutsenhet.
+
+
+
+
+
+
+3 Delsystem
+
+3.1 Beslutsenhet
+
+Beslutsenheten är den centrala modulen i roboten som tar alla beslut och samordnar de andra delsystemen, den hanterar även kommunikation med programvaran på datorn via bluetooth. Se figur 1.
+
+Funktionalitet
+
+*Kommunikation med programvara:
+Kommunikation med programvara sker via bluetooth med modulen firefly[1]. Till programvaran skickas felsökningsdata från sensor-, motor- och även beslutsenhetensjälv. Från programvaran skickas kalibreringsdata, samt kommandon när roboten är i manuellt läge. Kalibreringsdatan skickas under utveckling och testning av roboten istället för att den ska sparas som konstanter i de olika enheterna, vilket skulle försvåra testning och utveckling.
+
+*Kommunikation med motorenhet:
+Kommunikation med motorenhet sköts via databussen. Till motorenheten skickas kommandon (t.ex. kör, sväng, grip), sensordata (till t.ex. PD-reglering) samt kalibreringsdata (främst till PD-reglering). Från motorenheten till beslutsenheten skickas felsökningsdata samt bekräftelse på vissa kommandon (t.ex. grip).
+
+*Kommunikation med sensorenhet
+Kommunikation med sensorenhet sköts via databussen. Till sensorenheten skickas en del kommandon (t.ex. Starta kalibrering), samt kalibreringsdata. Från sensorenheten skickas sensordata samt felsökningsdata.
+
+*Beslutstagande
+I autonomt läge kommer beslutsenheten köra en state-machine som med hjälp av data från de andra enheterna beslutar vad som ska göras och skickar kommandon till de andra enheterna.
+
+*Beslutsdelegering
+I manuellt läge kommer beslutsenheten delegera kommandon den får via bluetooth till de andra enheterna.
+
+
+
+länkar
+https://docs.isy.liu.se/twiki/pub/VanHeden/DataSheets/firefly.pdf
